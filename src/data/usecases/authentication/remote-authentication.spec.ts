@@ -1,3 +1,4 @@
+import faker from 'faker'
 import { HttpPostClientSpy } from "../../../data/test/mock-http-client"
 import { RemoteAuthentication } from "./remote-authentication"
 
@@ -6,7 +7,7 @@ type SutTypes = {
   httpPostClientSpy: HttpPostClientSpy
 }
 
-const makeSut = (url: string = 'any_url'): SutTypes => {
+const makeSut = (url: string = faker): SutTypes => {
   const httpPostClientSpy = new HttpPostClientSpy()
   const sut = new RemoteAuthentication(url, httpPostClientSpy)
   return {
