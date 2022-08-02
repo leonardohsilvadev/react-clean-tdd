@@ -59,26 +59,8 @@ button {
       text-transform: uppercase;
     }
 
-    .inputWrap {
-      margin-top: 1rem;
-      display: flex;
-      position: relative;
-      align-items: center;
-
-      input {
-        flex-grow: 1;
-      }
-
-      button {
-        margin-top: 2rem;
-      }
-    }
-
-    .inputStatus {
-      position: absolute;
-      right: 0.5rem;
-      font-size: 0.75rem;
-      cursor: help;
+    button {
+      margin-top: 2rem;
     }
 
     .register {
