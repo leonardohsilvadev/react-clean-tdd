@@ -1,4 +1,4 @@
-import { LoginHeader, Spinner } from '@/presentation/components'
+import { Footer, LoginHeader, Spinner } from '@/presentation/components'
 import React from 'react'
 import styles from './login-styles.scss'
 
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
         </div>
       </form>
 
-      <footer className={styles.footer} />
+      <Footer />
     </div>
   )
 }
