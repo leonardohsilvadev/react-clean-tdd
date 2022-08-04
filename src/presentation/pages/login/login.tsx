@@ -25,7 +25,7 @@ const Login: React.FC = () => {
           <Input type="email" name="email" placeholder="Digite seu email" />
           <Input type="password" name="password" placeholder="Digite sua senha" />
 
-          <button type="submit">Entrar</button>
+          <button data-testid="submit" disabled type="submit">Entrar</button>
 
           <span className={styles.register}>Não possui conta? Cadastre-se</span>
 
