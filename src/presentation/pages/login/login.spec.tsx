@@ -1,8 +1,9 @@
 import React from 'react'
-import { render, RenderResult, fireEvent, cleanup } from '@testing-library/react'
+import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { faker } from '@faker-js/faker';
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import Login from './login'
+import { InvalidCredentialsError } from '@/domain/errors';
 
 type SutTypes = {
   sut: RenderResult
@@ -137,4 +138,17 @@ describe('Login Component', () => {
     fireEvent.submit(getByTestId('form'))
     expect(authenticationSpy.callsCount).toBe(0)
   })
+
+  // test('Should present error if Authentication fails', async () => {
+  //   const { sut: { getByTestId }, authenticationSpy } = makeSut()
+  //   const error = new InvalidCredentialsError()
+  //   jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error))
+  //   simulateValidSubmit(getByTestId)
+  //   const errorWrap = getByTestId('error-wrap')
+  //   await waitFor(() => errorWrap) 
+  //   const mainError = getByTestId('main-error')
+
+  //   expect(mainError.textContent).toBe(error.message)
+  //   expect(errorWrap.childElementCount).toBe(1)
+  // })
 })
