@@ -34,7 +34,11 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     try {
       if (state.isLoading || state.emailError || state.passwordError) return
       setState({ ...state, isLoading: true })
-      await authentication.auth({ email: state.email, password: state.password })
+      const account = await authentication.auth({
+        email: state.email,
+        password: state.password
+      })
+      localStorage.setItem('accessToken', account.accessToken)
     } catch (error) {
       setState({
         ...state,
@@ -55,7 +59,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
           <Input type="email" name="email" placeholder="Digite seu email" />
           <Input type="password" name="password" placeholder="Digite sua senha" />
 
-          <button data-testid="submit" disabled={!!(state.emailError || state.passwordError)} type="submit">Entrar</button>
+          <button data-testid="submit" disabled={!!(state.emailError || state.passwordError || state.isLoading)} type="submit">Entrar</button>
 
           <span className={styles.register}>Não possui conta? Cadastre-se</span>
 
