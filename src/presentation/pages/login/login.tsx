@@ -1,8 +1,9 @@
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Authentication } from '@/domain/usecases'
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
 import FormContext from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
-import React, { useState, useEffect } from 'react'
 import styles from './login-styles.scss'
 
 type Props = {
@@ -19,6 +20,8 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     passwordError: '',
     mainError: ''
   })
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setState({
@@ -61,7 +64,13 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
 
           <button data-testid="submit" disabled={!!(state.emailError || state.passwordError || state.isLoading)} type="submit">Entrar</button>
 
-          <span className={styles.register}>Não possui conta? Cadastre-se</span>
+          <Link
+            to="/signup"
+            data-testid="signup"
+            className={styles.register}
+          >
+            Não possui conta? Cadastre-se
+          </Link>
 
           <FormStatus />
         </form>
