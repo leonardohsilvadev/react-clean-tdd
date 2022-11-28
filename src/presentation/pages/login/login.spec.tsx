@@ -5,9 +5,7 @@ import { createMemoryHistory } from 'history'
 import { render, RenderResult, fireEvent, cleanup, waitFor, getByAltText, getByTestId } from '@testing-library/react'
 import { faker } from '@faker-js/faker';
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
-import Login from './login'
-import { InvalidCredentialsError } from '@/domain/errors'
-import { BrowserRouter } from 'react-router-dom'
+import { Login } from '@/presentation/pages'
 
 type SutTypes = {
   sut: RenderResult
