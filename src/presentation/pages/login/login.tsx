@@ -42,6 +42,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         password: state.password
       })
       localStorage.setItem('accessToken', account.accessToken)
+      navigate('/')
     } catch (error) {
       setState({
         ...state,
