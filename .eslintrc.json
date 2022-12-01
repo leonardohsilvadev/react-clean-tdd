@@ -14,7 +14,7 @@
   },
   "plugins": ["react", "cypress"],
   "parserOptions": {
-    "project": "./tsconfig-eslint.json"
+    "project": "./tsconfig.json"
   },
   "rules": {
     "@typescript-eslint/consistent-type-definitions": "off",
@@ -23,6 +23,18 @@
     "@typescript-eslint/comma-spacing": "off",
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/method-signature-style": "off",
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/brace-style": "off",
+    "@typescript-eslint/explicit-module-boundary-type": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "react/prop-types": "off",
+    "no-useless-escape": "off",
+    "no-trailing-spaces": "off",
+    "eol-last": "off",
     "no-redeclare": "off",
     "import/export": "off",
     "react/jsx-uses-react": "error",

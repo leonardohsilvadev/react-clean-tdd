@@ -2,7 +2,7 @@ import 'jest-localstorage-mock'
 import React from 'react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { render, RenderResult, fireEvent, cleanup, waitFor, getByAltText, getByTestId } from '@testing-library/react'
+import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { faker } from '@faker-js/faker';
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import { Login } from '@/presentation/pages'
@@ -40,7 +40,7 @@ const simulateValidSubmit = async (
   getByTestId,
   email = faker.internet.email(),
   password = faker.internet.password()
-  ): Promise<void> => {
+): Promise<void> => {
   populateEmailField(getByTestId, email)
   populatePasswordField(getByTestId, password)
   const form = getByTestId('form')
