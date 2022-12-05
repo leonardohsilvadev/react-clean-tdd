@@ -31,6 +31,7 @@
     "@typescript-eslint/brace-style": "off",
     "@typescript-eslint/explicit-module-boundary-type": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
     "react/prop-types": "off",
     "no-useless-escape": "off",
     "no-trailing-spaces": "off",
