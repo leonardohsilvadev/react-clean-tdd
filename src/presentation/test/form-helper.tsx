@@ -1,3 +1,6 @@
+import { faker } from "@faker-js/faker"
+import { fireEvent } from "@testing-library/react"
+
 export const testButtonIsDisabled = (
   getByTestId,
   fieldName: string,
@@ -24,4 +27,13 @@ export const testStatusForField = (
   const fieldStatus = getByTestId(`${fieldName}-status`)
   expect(fieldStatus.title).toBe(validationError || 'Ok')
   expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
+}
+
+export const populateField = (
+  getByTestId,
+  fieldName: string,
+  value = faker.random.word()
+): void => {
+  const input = getByTestId(fieldName)
+  fireEvent.input(input, { target: { value } })
 }
