@@ -3,7 +3,12 @@ import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { render, RenderResult, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { faker } from '@faker-js/faker';
-import { ValidationStub, AuthenticationSpy, SaveAccessTokenMock } from '@/presentation/test'
+import {
+  ValidationStub,
+  AuthenticationSpy,
+  SaveAccessTokenMock,
+  FormHelper
+} from '@/presentation/test'
 import { Login } from '@/presentation/pages'
 
 type SutTypes = {
@@ -69,33 +74,6 @@ const populatePasswordField = (
   fireEvent.input(passwordInput, { target: { value: password } })
 }
 
-const testStatusForField = (
-  getByTestId,
-  fieldName: string,
-  validationError?: string
-): void => {
-  const fieldStatus = getByTestId(`${fieldName}-status`)
-  expect(fieldStatus.title).toBe(validationError || 'Ok')
-  expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
-}
-
-const testButtonIsDisabled = (
-  getByTestId,
-  fieldName: string,
-  isDisabled: boolean
-): void => {
-  const button = getByTestId(fieldName) as HTMLButtonElement
-  expect(button.disabled).toBe(isDisabled)
-}
-
-const testErrorWrapChildCount = (
-  getByTestId,
-  count: number
-): void => {
-  const errorWrap = getByTestId('error-wrap')
-  expect(errorWrap.childElementCount).toBe(count)
-}
-
 const testElementExists = (
   getByTestId,
   fieldName: string
@@ -111,45 +89,45 @@ describe('Login Component', () => {
     const validationError = faker.random.words()
     const { sut: { getByTestId } } = makeSut({ validationError })
 
-    testErrorWrapChildCount(getByTestId, 0)
+    FormHelper.testChildCount(getByTestId, 'error-wrap', 0)
 
-    testButtonIsDisabled(getByTestId, 'submit', true)
+    FormHelper.testButtonIsDisabled(getByTestId, 'submit', true)
 
-    testStatusForField(getByTestId, 'email', validationError)
-    testStatusForField(getByTestId, 'password', validationError)
+    FormHelper.testStatusForField(getByTestId, 'email', validationError)
+    FormHelper.testStatusForField(getByTestId, 'password', validationError)
   })
 
   test('Should show email error if validation fails', () => {
     const validationError = faker.random.words()
     const { sut: { getByTestId } } = makeSut({ validationError })
     populateEmailField(getByTestId)
-    testStatusForField(getByTestId, 'email', validationError)
+    FormHelper.testStatusForField(getByTestId, 'email', validationError)
   })
 
   test('Should show password error if validation fails', () => {
     const validationError = faker.random.words()
     const { sut: { getByTestId } } = makeSut({ validationError })
     populatePasswordField(getByTestId)
-    testStatusForField(getByTestId, 'password', validationError)
+    FormHelper.testStatusForField(getByTestId, 'password', validationError)
   })
 
   test('Should show valid email state if validation succeeds', () => {
     const { sut: { getByTestId } } = makeSut()
     populateEmailField(getByTestId)
-    testStatusForField(getByTestId, 'email')
+    FormHelper.testStatusForField(getByTestId, 'email')
   })
 
   test('Should show valid password state if validation succeeds', () => {
     const { sut: { getByTestId } } = makeSut()
     populatePasswordField(getByTestId)
-    testStatusForField(getByTestId, 'password')
+    FormHelper.testStatusForField(getByTestId, 'password')
   })
 
   test('Should enable submit button if form is valid', () => {
     const { sut: { getByTestId } } = makeSut()
     populateEmailField(getByTestId)
     populatePasswordField(getByTestId)
-    testButtonIsDisabled(getByTestId, 'submit', false)
+    FormHelper.testButtonIsDisabled(getByTestId, 'submit', false)
   })
 
   test('Should show spinner on submit', async () => {
