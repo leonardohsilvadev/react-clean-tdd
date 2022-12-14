@@ -1,31 +1,58 @@
 import React from 'react'
+import { faker } from '@faker-js/faker'
+import { RenderResult, render, cleanup, fireEvent } from '@testing-library/react'
 import SignUp from "./signup"
-import { RenderResult, render } from '@testing-library/react'
-import { FormHelper } from '@/presentation/test'
+import { FormHelper, ValidationStub } from '@/presentation/test'
 
 type SutTypes = {
   sut: RenderResult
 }
 
-const makeSut = (): SutTypes => {
+type SutParams = {
+  validationError: string
+}
+
+const makeSut = (params?: SutParams): SutTypes => {
+  const validationStub = new ValidationStub()
+  validationStub.errorMessage = params?.validationError
   const sut = render(
     // <Router location={history.location} navigator={history}>
-      <SignUp />
+      <SignUp
+        validation={validationStub}
+      />
     // </Router>
   )
   return { sut }
 }
 
+const populateField = (
+  getByTestId,
+  fieldName: string,
+  value = faker.random.word()
+): void => {
+  const input = getByTestId(fieldName)
+  fireEvent.input(input, { target: { value } })
+}
+
 describe('SignUp Component', () => {
+  afterEach(cleanup)
+
   test('Should start with initial state', () => {
-    const { sut: { getByTestId } } = makeSut()
-    const validationError = 'Campo obrigatório'
+    const validationError = faker.random.words()
+    const { sut: { getByTestId } } = makeSut({ validationError })
 
     FormHelper.testChildCount(getByTestId, 'error-wrap', 0)
     FormHelper.testButtonIsDisabled(getByTestId, 'submit', true)
     FormHelper.testStatusForField(getByTestId, 'name', validationError)
-    FormHelper.testStatusForField(getByTestId, 'email', validationError)
-    FormHelper.testStatusForField(getByTestId, 'password', validationError)
-    FormHelper.testStatusForField(getByTestId, 'passwordConfirmation', validationError)
+    FormHelper.testStatusForField(getByTestId, 'email', 'Campo obrigatório')
+    FormHelper.testStatusForField(getByTestId, 'password', 'Campo obrigatório')
+    FormHelper.testStatusForField(getByTestId, 'passwordConfirmation', 'Campo obrigatório')
+  })
+
+  test('Should show name error if validation fails', () => {
+    const validationError = faker.random.words()
+    const { sut: { getByTestId } } = makeSut({ validationError })
+    populateField(getByTestId, 'name')
+    FormHelper.testStatusForField(getByTestId, 'name', validationError)
   })
 })
