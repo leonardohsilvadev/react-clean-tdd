@@ -71,8 +71,8 @@ const Login: React.FC<Props> = ({
           <button data-testid="submit" disabled={!!(state.emailError || state.passwordError || state.isLoading)} type="submit">Entrar</button>
 
           <Link
+            data-testid="signup-link"
             to="/signup"
-            data-testid="signup"
             className={styles.register}
           >
             Não possui conta? Cadastre-se
