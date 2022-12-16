@@ -2,30 +2,37 @@ import React from 'react'
 import { faker } from '@faker-js/faker'
 import { RenderResult, render, cleanup, fireEvent, waitFor } from '@testing-library/react'
 import SignUp from "./signup"
-import { FormHelper, ValidationStub, AddAccountSpy } from '@/presentation/test'
+import { FormHelper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/presentation/test'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 type SutParams = {
   validationError: string
 }
 
+const history = createMemoryHistory()
+
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const addAccountSpy = new AddAccountSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   validationStub.errorMessage = params?.validationError
   const sut = render(
-    // <Router location={history.location} navigator={history}>
+    <Router location={history.location} navigator={history}>
       <SignUp
         validation={validationStub}
         addAccount={addAccountSpy}
+        saveAccessToken={saveAccessTokenMock}
       />
-    // </Router>
+    </Router>
   )
-  return { sut, addAccountSpy }
+  return { sut, addAccountSpy, saveAccessTokenMock }
 }
 
 const simulateValidSubmit = async (
@@ -150,5 +157,11 @@ describe('SignUp Component', () => {
     const { sut: { getByTestId }, addAccountSpy } = makeSut({ validationError })
     await simulateValidSubmit(getByTestId)
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  test('Should call SaveAccessToken on success', async () => {
+    const { sut: { getByTestId }, addAccountSpy, saveAccessTokenMock } = makeSut()
+    await simulateValidSubmit(getByTestId)
+    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
   })
 })
