@@ -32,7 +32,6 @@ const SignUp: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
   useEffect(() => {
     const { name, email, password, passwordConfirmation } = state
     const formData = { name, email, password, passwordConfirmation }
-    // const { name, email, password, passwordConfirmation } = state
     const nameError = validation.validate('name', formData)
     const emailError = validation.validate('email', formData)
     const passwordError = validation.validate('password', formData)
@@ -46,7 +45,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
       passwordConfirmationError,
       isFormInvalid: !!(nameError || emailError || passwordError || passwordConfirmationError)
     })
-  }, [state.name, state.email])
+  }, [state.name, state.email, state.password, state.passwordConfirmation])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
