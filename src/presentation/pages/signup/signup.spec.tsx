@@ -145,14 +145,14 @@ describe('SignUp Component', () => {
     })
   })
 
-  test('Should call Authentication only once', async () => {
+  test('Should call AddAccount only once', async () => {
     const { sut: { getByTestId }, addAccountSpy } = makeSut()
     await simulateValidSubmit(getByTestId)
     await simulateValidSubmit(getByTestId)
     expect(addAccountSpy.callsCount).toBe(1)
   })
 
-  test('Should not call Authentication if form is invalid', async () => {
+  test('Should not call AddAccount if form is invalid', async () => {
     const validationError = faker.random.words()
     const { sut: { getByTestId }, addAccountSpy } = makeSut({ validationError })
     await simulateValidSubmit(getByTestId)

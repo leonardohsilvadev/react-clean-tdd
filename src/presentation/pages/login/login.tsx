@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Authentication, SaveAccessToken } from '@/domain/usecases'
-import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
+import { Footer, FormStatus, Input, LoginHeader, SubmitButton } from '@/presentation/components'
 import FormContext from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import styles from './login-styles.scss'
@@ -19,6 +19,7 @@ const Login: React.FC<Props> = ({
 }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: true,
     email: '',
     password: '',
     emailError: '',
@@ -29,10 +30,14 @@ const Login: React.FC<Props> = ({
   const navigate = useNavigate()
 
   useEffect(() => {
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
+
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password)
+      emailError,
+      passwordError,
+      isFormInvalid: !!(emailError || passwordError)
     })
   }, [state.email, state.password])
 
@@ -40,7 +45,8 @@ const Login: React.FC<Props> = ({
     event.preventDefault()
 
     try {
-      if (state.isLoading || state.emailError || state.passwordError) return
+      if (state.isLoading || state.isFormInvalid) return
+
       setState({ ...state, isLoading: true })
       const account = await authentication.auth({
         email: state.email,
@@ -68,7 +74,7 @@ const Login: React.FC<Props> = ({
           <Input type="email" name="email" placeholder="Digite seu email" />
           <Input type="password" name="password" placeholder="Digite sua senha" />
 
-          <button data-testid="submit" disabled={!!(state.emailError || state.passwordError || state.isLoading)} type="submit">Entrar</button>
+          <SubmitButton text="Entrar" />
 
           <Link
             data-testid="signup-link"

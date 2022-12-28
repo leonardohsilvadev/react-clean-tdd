@@ -25,15 +25,6 @@
 
     button {
       margin-top: 2rem;
-
-      &:disabled {
-        background-color: $disabledBackground;
-        color: $disabledText;
-
-        &:hover {
-          opacity: 1;
-        }
-      }
     }
 
     .register {
