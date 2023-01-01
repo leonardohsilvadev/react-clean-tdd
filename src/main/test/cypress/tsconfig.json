@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "types": ["cypress", "node"]
+  },
+  "include": [
+    "../../../../node_modules/cypress",
+    "./*/*.ts"
+  ]
+}

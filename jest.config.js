@@ -7,6 +7,10 @@ module.exports = {
     '!<rootDir>/src/presentation/components/router/**/*',
     '!**/*.d.ts'
   ],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/src/main/test/cypress'
+  ],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
   transform: {
