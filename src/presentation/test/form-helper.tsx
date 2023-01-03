@@ -22,11 +22,14 @@ export const testChildCount = (
 export const testStatusForField = (
   getByTestId,
   fieldName: string,
-  validationError?: string
+  validationError: string = ''
 ): void => {
-  const fieldStatus = getByTestId(`${fieldName}-status`)
-  expect(fieldStatus.title).toBe(validationError || 'Ok')
-  expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
+  const field = getByTestId(`${fieldName}`)
+  const wrap = getByTestId(`${fieldName}-wrap`)
+  const label = getByTestId(`${fieldName}-label`)
+  expect(field.title).toBe(validationError)
+  expect(label.title).toBe(validationError)
+  expect(wrap.getAttribute('data-status')).toBe(validationError ? 'invalid' : 'valid')
 }
 
 export const populateField = (
