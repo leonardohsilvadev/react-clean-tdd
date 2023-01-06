@@ -90,4 +90,10 @@ describe('Signup', () => {
     cy.getByTestId('submit').dblclick()
     formHelper.testHttpCallsCount(1)
   })
+
+  it('Should not call submit if form is invalid', () => {
+    http.mockOk()
+    cy.getByTestId('email').type(faker.internet.email()).type('{enter}')
+    formHelper.testHttpCallsCount(0)
+  })
 })
