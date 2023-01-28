@@ -1,0 +1,149 @@
+@import '../../styles/colors.scss';
+
+.surveyListWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background-color: $disabledBackground;
+
+  .headerWrap {
+    display: flex;
+    background-color: $primary;
+    border-top: 2.5rem solid $primaryDark;
+    justify-content: center;
+
+    .headerContent {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 50rem;
+      flex-grow: 1;
+      padding: 1.5rem 2.5rem;
+
+      img {
+        width: 3.75rem;
+        align-self: center;
+      }
+
+      .logoutWrap {
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        color: $white;
+
+        span {
+          font-size: 1rem;
+          margin-bottom: .5rem;
+        }
+
+        a {
+          color: $white;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+ }
+ 
+  .contentWrap {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: flex-start;
+    max-width: 50rem;
+    width: 100%;
+    flex-grow: 1;
+    padding: 2.5rem;
+
+    h2 {
+      color: $primaryDark;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      li {
+        height: 15.6rem;
+        background-color: $white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        box-shadow: 0rem 0.063rem 0.188rem -0.063rem $black;
+
+        .surveyContent {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          flex-grow: 1;
+          background-repeat: no-repeat;
+          background-image:
+            linear-gradient(to right, rgba($primaryLight, 0.1), rgba($primaryLight, 0.1)),
+            linear-gradient(to right, $white, $white);
+          background-position: 0 0, 54 0;
+          background-size: 3.375rem 100%, 100% 100%;
+
+          time {
+            display: flex;
+            flex-direction: column;
+            background-color: $primaryLight;
+            color: $white;
+            border-radius: .5rem;
+            margin-left: 1.5rem;
+            align-self: center;
+            justify-content: center;
+            width: 3.75rem;
+            height: 6.25rem;
+            align-items: center;
+            flex-shrink: 0;
+
+            .day {
+              font-size: 2.5rem;
+              font-weight: bold;
+            }
+
+            .month {
+              text-transform: lowercase;
+              margin: 0rem 0rem .313rem;
+            }
+
+            .year {
+              font-size: 1rem;
+            }
+          }
+
+          p {
+            font-size: 1.125rem;
+            margin: 1.5rem;
+            align-self: center;
+          }
+        }
+        footer {
+          background-color: $primary;
+          color: $white;
+          line-height: 2.5rem;
+          text-transform: lowercase;
+          text-align: center;
+          cursor: pointer;
+          // border-radius: 0rem 0rem .5rem .5rem;
+
+          &:hover {
+            background-color: $primaryDark;
+          }
+        }
+      }
+    }
+  }
+}

@@ -66,7 +66,7 @@ const Login: React.FC<Props> = ({
   }
 
   return (
-    <div className={styles.login}>
+    <div className={styles.loginWrap}>
 
       <LoginHeader />
 

@@ -71,7 +71,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
   }
 
   return (
-    <div className={styles.signup}>
+    <div className={styles.signupWrap}>
 
       <LoginHeader />
 
