@@ -57,18 +57,6 @@
             position: absolute;
             top: -0.625rem;
             right: -0.625rem;
-            padding: 0.625rem;
-            border-radius: 100%;
-            display: flex;
-            box-shadow: 0rem 0.063rem 0.188rem -0.063rem $black;
-
-            &.red {
-              background-color: $invalid;
-            }
-
-            &.green {
-              background-color: $valid;
-            }
           }
 
           time {
