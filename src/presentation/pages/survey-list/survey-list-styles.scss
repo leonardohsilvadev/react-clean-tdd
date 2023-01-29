@@ -38,6 +38,7 @@
         flex-direction: column;
         justify-content: space-between;
         margin-bottom: 1.5rem;
+        flex-basis: 48%;
         box-shadow: 0rem 0.063rem 0.188rem -0.063rem $black;
 
         .surveyContent {
@@ -92,6 +93,7 @@
             font-size: 1.125rem;
             margin: 1.5rem;
             align-self: center;
+            flex-grow: 1;
           }
         }
         footer {
@@ -106,6 +108,18 @@
           &:hover {
             background-color: $primaryDark;
           }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .surveyListWrap {
+    .contentWrap {
+      ul {
+        li {
+          flex-basis: 100%;
         }
       }
     }
